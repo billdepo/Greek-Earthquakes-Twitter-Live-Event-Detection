@@ -1,4 +1,13 @@
-﻿def earthquakedateconverter(date):
+#Custom function that converts a date string from UTC timezone that Twitter API provides originally 
+#(eg. 'Sun Dec 30 05:34:55 +0000 2017') to GMT+3, Greece local time. Note: We have considered February to have 28 days.
+
+#example run:
+#date='Sun Dec 30 05:34:55 +0000 2017'
+#print (date)
+#newdate=earthquakedateconverter(date)
+#print(newdate)
+
+def earthquakedateconverter(date):
     splitted_string=date.split()
 
     day_number=splitted_string[2]
