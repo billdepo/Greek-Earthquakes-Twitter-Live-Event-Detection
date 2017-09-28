@@ -1,0 +1,79 @@
+#cofe for tweets importing through Streaming API based on specific keywords set
+
+from tweepy import Stream
+from tweepy import OAuthHandler
+from tweepy.streaming import StreamListener
+ 
+import csv
+import json
+ 
+#consumer key, consumer secret, access token, access secret. ENTER THE KEYS YOU FIND in the app you have created here
+#https://apps.twitter.com/app/
+
+ckey = ""
+csecret = ""
+atoken = ""
+asecret = ""
+ 
+with open('file.csv', 'a', newline='', encoding='utf8') as csvfile:
+    savefile = csv.writer(csvfile, delimiter=';')
+    savefile.writerow(["Created_at", "User", "Tweet", "Hastags_list", 'Expanded_url_list', "User_Location", "Country", "Place_Name"])
+ 
+class listener(StreamListener):
+ 
+    def on_data(self, data):
+ 
+        tweet_dict = json.loads(data, encoding="utf-8") # transforms string to dictionary
+        try: # we use the exception utility because of the occasional tweet that fails in the stream
+            created_at = tweet_dict["created_at"]
+            username = tweet_dict["user"]["screen_name"]  # store tweet's user
+            id_integer=tweet_dict["user"]["id"] # store tweet's id (unique integer id for specific user)
+ 
+            text = tweet_dict["text"]  # store tweet's text
+            text = text.replace('\n', '')  # removes all newline characters from tweet's text
+            text = text.replace(';',' ')  # removes all tab characters from tweet's text, which is our delimiter in csv file
+            urls=tweet_dict["entities"]["urls"]
+ 
+            expanded_url=[]
+ 
+            if (tweet_dict['entities']) is not None:
+                if (tweet_dict['entities']['urls']) is not None:
+                    for iterator in tweet_dict['entities']['urls']:
+                        if iterator['expanded_url'] is not None:
+                            expanded_url.append(iterator['expanded_url'])
+ 
+            #print (text)
+            #have a look here for the following http://socialmedia-class.org/twittertutorial.html
+ 
+            user_location=tweet_dict['user']['location']
+            #hashtags
+            hashtags_list = []
+            for hashtag in tweet_dict['entities']['hashtags']:
+                hashtags_list.append(hashtag['text'])
+ 
+            if tweet_dict["place"] is not None:
+                country=tweet_dict["place"]["country"]
+                place_name=tweet_dict["place"]["name"]
+ 
+            else:
+                country=None
+                place_name=None
+ 
+            # Open and write your file.
+            with open('file.csv', 'a', newline='', encoding='utf8') as csvfile:
+                savefile = csv.writer(csvfile, delimiter=';')
+                savefile.writerow([created_at, username, text, hashtags_list, expanded_url, user_location, country, place_name ])
+ 
+        except KeyError:
+            pass
+ 
+ 
+    def on_error(self, status):
+        print (status)
+ 
+auth = OAuthHandler(ckey, csecret)
+auth.set_access_token(atoken, asecret)
+ 
+twitterStream = Stream(auth, listener())
+#twitterStream.filter(track=['σεισμός', 'σεισμικη δονηση', 'ριχτερ', 'εγκελαδος', 'πυρκαγια', 'εμπρησμος', 'μεγαλη φωτια', 'φωτια μαινεται', 'τροχαιο', 'αυτοκινητιστικο', 'συγκρουση οχηματων', 'συγκνοινωνιες', 'ΟΑΣΑ', 'ΟΑΣΘ', 'Αστεροσκοπειο','Ιδρυμα Σταυρος Νιαρχος', 'συναυλια', 'εκθεση τεχνης', 'επενδυση', 'καιρος'])
+twitterStream.filter(track=['Warriors', 'Trump'])
