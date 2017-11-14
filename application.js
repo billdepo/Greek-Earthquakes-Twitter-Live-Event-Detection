@@ -2,6 +2,8 @@
 //1. python file: live_website_tweets_crawling_app_earthquake.py
 //2. html file: index_test2_bootstrap.html
 
+//Authors: Andrew & Vasilis
+
 $(document).ready(function(){ //$( document ).ready() will only run once the page Document
                               //Object Model (DOM) is ready for JavaScript code to execute
 
