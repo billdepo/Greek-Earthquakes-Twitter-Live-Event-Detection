@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!--If you don't want to download and host jQuery yourself, you can include it from-->
+    <!--a CDN (Content Delivery Network). Both Google and Microsoft host jQuery.-->
+    <!--so you dont need to download jQuery library-->
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+    <!--same logic for socket io library. No need to download - hosted in the link-->
+
+    <script src="static/js/application.js"></script>
+    <script src="static/js/application_alarm_posting.js"></script>
+
+    <!--we define the source of this script as a local one in the directory "/static/js/"-->
+    <!--and we let the html know it is file "application.js" in this directory-->
+
+
+  <title>Ανίχνευση σεισμών</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+         position: relative;
+        margin-top: -150px; /* negative value of footer height */
+        height: 150px;
+       clear:both;
+      padding-top:20px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+  </style>
+</head>
+<body background="http://ceefc02649d25ca315ac-ef93c2ad0985f7464ef79b04e64427fa.r18.cf2.rackcdn.com/product_images/8572/Aurora_Tulum.jpg" >
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.ntua.gr/en/" target="_blank">
+        <img src="https://image.ibb.co/ge1idk/logo_ntua.png" style="display: inline-block;">
+        <span style="display: inline-block;">NTUA</span>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="https://github.com/billdepo/Greek-Earthquakes-Twitter-Live-Event-Detection" target="_blank" >Github</a></li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<!-- <div class="container-fluid text-center">    -->
+<div class="container">
+  <div class="row content">
+    <div class="col-sm-8 text-left">
+      <h1>Σύστημα ανίχνευσης και αναφοράς σεισμών</h1>
+      <hr>
+      <h2><u>Ροή tweets από Streaming API</u></h2>
+      <p>
+        <div id="log"> </div> <!--in here runs javascript code for printing tweets live -->
+      </p>
+      <hr> <!-- defines a line break-->
+
+    </div>
+
+
+    <div class="col-sm-8 text-left">
+      <h2><u>Γεγονότα που ανιχνεύονται</u></h2>
+      <p>
+<!--        <div id="alarm_posting"></div> in here runs javascript code for printing alarm's reports-->
+
+      </p>
+
+    </div>
+
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <div class="navbar navbar-fixed-bottom">
+
+    <span class="text-muted">
+      Copyright 2017 @ Domain - All Rights Reserved. </span>
+
+  </div>
+</footer>
+
+</body>
+</html>
