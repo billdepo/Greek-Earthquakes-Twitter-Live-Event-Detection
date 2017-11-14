@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 #fixed issue with old gevent library: $pip uninstall gevent $pip install gevent==1.1b4
 
+
 #Demo Flask application to test the operation of Flask with socket.io. Aim is to create a webpage that is constantly updated with tweets that contain specific user-defined keywords from a background python process.
+#added the HTML and Javascript files to make the webpage work!
 def Nothing():
     return 1
 
